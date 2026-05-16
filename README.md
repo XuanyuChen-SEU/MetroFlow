@@ -15,7 +15,7 @@
 
 - [demo.html](/D:/Desktop/虚拟现实与数据可视化/final-project/demo.html)
 - [data/count_df.csv](/D:/Desktop/虚拟现实与数据可视化/final-project/data/count_df.csv)
-- [data/metro_city_flow.csv](/D:/Desktop/虚拟现实与数据可视化/final-project/data/metro_city_flow.csv)
+- [data/metro_global.json](/home/cxy/projects/final-project/data/metro_global.json)
 - [data/station_info.json](/D:/Desktop/虚拟现实与数据可视化/final-project/data/station_info.json)
 - [docs/系统设计指南.md](/D:/Desktop/虚拟现实与数据可视化/final-project/docs/系统设计指南.md)
 - [docs/使用指南.md](/D:/Desktop/虚拟现实与数据可视化/final-project/docs/使用指南.md)
@@ -62,7 +62,7 @@
 本项目后续只使用以下 3 个文件作为业务数据源：
 
 - `count_df.csv`
-- `metro_city_flow.csv`
+- `metro_global.json`
 - `station_info.json`
 
 约束说明：
@@ -124,7 +124,7 @@ final-project/
 │   └── load_mysql.py
 ├── data/
 │   ├── count_df.csv
-│   ├── metro_city_flow.csv
+│   ├── metro_global.json
 │   ├── station_info.json
 │   ├── processed/
 │   │   ├── dim_station.csv
@@ -168,12 +168,13 @@ final-project/
 
 ### 5.3 `macro_city_flow`
 
-全国地铁城市宏观统计表，保存城市级聚合指标：
+全国地铁城市宏观统计表，保存城市近 15 天客流快照：
 
+- 城市 slug
 - 城市名称
-- 客流规模
-- 线路数量
-- 运营里程
+- 统计日期
+- 日客流规模
+- 最新更新时间
 - 经纬度
 
 ## 6. 规划中的 5 个 RESTful API
@@ -308,7 +309,7 @@ npm run dev
 确认以下文件可正常读取：
 
 - [data/count_df.csv](/D:/Desktop/虚拟现实与数据可视化/final-project/data/count_df.csv)
-- [data/metro_city_flow.csv](/D:/Desktop/虚拟现实与数据可视化/final-project/data/metro_city_flow.csv)
+- [data/metro_global.json](/home/cxy/projects/final-project/data/metro_global.json)
 - [data/station_info.json](/D:/Desktop/虚拟现实与数据可视化/final-project/data/station_info.json)
 
 ## 11. 当前阶段结论

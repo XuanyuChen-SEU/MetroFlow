@@ -51,6 +51,19 @@
   gap: 16px;
 }
 
+.national-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.national-layout {
+  display: grid;
+  grid-template-columns: 24% 1fr 26%;
+  gap: 16px;
+  min-height: 0;
+}
+
 .sh-grid {
   grid-template-columns: 1.65fr 1fr;
 }
@@ -114,6 +127,67 @@
   height: 420px;
 }
 
+.top10-panel,
+.map-panel,
+.trend-panel,
+.insight-panel {
+  min-height: 0;
+}
+
+.top10-panel .chart-host,
+.trend-panel .chart-host {
+  height: 100%;
+  min-height: 320px;
+}
+
+.map-panel {
+  position: relative;
+  min-height: 540px;
+  overflow: hidden;
+}
+
+.map-title {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  margin-bottom: 0;
+}
+
+.national-map {
+  height: 100%;
+  min-height: 508px;
+}
+
+.side-column {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+}
+
+.insight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.insight-item {
+  padding-left: 12px;
+  border-left: 3px solid var(--primary);
+}
+
+.insight-label {
+  color: var(--text-sub);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.insight-value {
+  color: var(--text-main);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .control-bar {
   grid-column: 1 / span 2;
   display: grid;
@@ -133,11 +207,132 @@ input[type="range"] {
   width: 100%;
 }
 
+.shanghai-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.shanghai-main {
+  display: grid;
+  grid-template-columns: 1.65fr 0.95fr;
+  gap: 16px;
+}
+
+.shanghai-map-panel {
+  position: relative;
+  min-height: 540px;
+}
+
+.shanghai-map-panel .chart-host {
+  height: 492px;
+}
+
+.shanghai-side {
+  display: grid;
+  grid-template-rows: auto 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.compact-panel {
+  min-height: 0;
+}
+
+.line-select {
+  width: 100%;
+  padding: 10px 12px;
+  background: #0a0f18;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 10px;
+  outline: none;
+  font-size: 13px;
+}
+
+.map-legend {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  background: rgba(18, 28, 43, 0.88);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px 14px;
+  backdrop-filter: blur(4px);
+}
+
+.legend-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.legend-items {
+  display: flex;
+  gap: 14px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-sub);
+  font-size: 12px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot.green {
+  background: var(--green);
+}
+
+.legend-dot.yellow {
+  background: var(--yellow);
+}
+
+.legend-dot.red {
+  background: var(--red);
+}
+
 @media (max-width: 1200px) {
+  .national-layout,
   .screen-grid,
   .sh-grid,
   .metrics-grid {
     grid-template-columns: 1fr;
+  }
+
+  .shanghai-main {
+    grid-template-columns: 1fr;
+  }
+
+  .side-column {
+    grid-template-rows: none;
+  }
+
+  .shanghai-side {
+    grid-template-rows: auto;
+  }
+
+  .map-panel {
+    min-height: 420px;
+  }
+
+  .national-map {
+    min-height: 388px;
+  }
+
+  .shanghai-map-panel {
+    min-height: 420px;
+  }
+
+  .shanghai-map-panel .chart-host {
+    height: 388px;
   }
 
   .control-bar {

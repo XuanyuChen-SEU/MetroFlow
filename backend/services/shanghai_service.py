@@ -5,6 +5,17 @@ from typing import Any
 from services.data_store import store
 
 
+def _filter_by_line(hourly, line_name: str | None):
+    if not line_name or line_name == "all":
+        return hourly.copy()
+    mask = hourly["line_names"].str.split("|", regex=False).map(lambda lines: line_name in lines)
+    return hourly[mask].copy()
+
+
+def get_topology() -> dict[str, Any]:
+    return store.shanghai_topology()
+
+
 def get_hourly_flow(hour: int) -> list[dict[str, Any]]:
     hourly = store.hourly_fact()
     filtered = hourly[hourly["hour_of_day"] == int(hour)].copy()
@@ -22,6 +33,18 @@ def get_line_heat(hour: int) -> list[dict[str, Any]]:
         .round(2)
         .sort_values("crowd_index", ascending=False)
     )
+    return grouped.to_dict(orient="records")
+
+
+def get_load_trend(line_name: str | None = None) -> list[dict[str, Any]]:
+    hourly = _filter_by_line(store.hourly_fact(), line_name)
+    grouped = (
+        hourly.groupby(["hour_of_day", "hour_label"], as_index=False)["avg_flow"]
+        .sum()
+        .sort_values("hour_of_day")
+    )
+    max_value = max(float(grouped["avg_flow"].max()), 1.0)
+    grouped["load_index"] = (grouped["avg_flow"] / max_value * 100).round(1)
     return grouped.to_dict(orient="records")
 
 

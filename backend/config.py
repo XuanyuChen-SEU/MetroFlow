@@ -23,3 +23,4 @@ class Config:
     DIM_STATION_FILE = DATA_DIR / "dim_station.csv"
     FACT_HOURLY_FILE = DATA_DIR / "fact_hourly_flow.csv"
     MACRO_CITY_FILE = DATA_DIR / "macro_city_flow_clean.csv"
+    SHANGHAI_TOPOLOGY_FILE = DATA_DIR / "shanghai_line_topology.json"

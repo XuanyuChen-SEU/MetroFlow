@@ -6,22 +6,40 @@
 import * as echarts from "echarts";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 
+const emit = defineEmits(["chart-click"]);
+
 const props = defineProps({
   option: {
     type: Object,
     required: true,
   },
+  preserveState: {
+    type: Boolean,
+    default: false,
+  },
+  replaceMerge: {
+    type: Array,
+    default: () => [],
+  },
 });
 
 const container = ref(null);
 let chart;
+let clickBound = false;
 
 const render = () => {
   if (!container.value) return;
   if (!chart) {
     chart = echarts.init(container.value);
   }
-  chart.setOption(props.option, true);
+  if (!clickBound) {
+    chart.on("click", (params) => emit("chart-click", params));
+    clickBound = true;
+  }
+  chart.setOption(props.option, {
+    notMerge: !props.preserveState,
+    replaceMerge: props.replaceMerge,
+  });
 };
 
 onMounted(() => {
@@ -40,5 +58,6 @@ onBeforeUnmount(() => {
   if (chart) {
     chart.dispose();
   }
+  clickBound = false;
 });
 </script>

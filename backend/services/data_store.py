@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
+import json
 
 import pandas as pd
 
@@ -29,6 +30,10 @@ class DataStore:
         if self.source == "mysql":
             return pd.read_sql("SELECT * FROM macro_city_flow", get_engine())
         return pd.read_csv(Config.MACRO_CITY_FILE)
+
+    @lru_cache(maxsize=1)
+    def shanghai_topology(self) -> dict:
+        return json.loads(Config.SHANGHAI_TOPOLOGY_FILE.read_text(encoding="utf-8"))
 
 
 store = DataStore()

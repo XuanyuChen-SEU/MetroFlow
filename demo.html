@@ -6,7 +6,6 @@
     <title>MetroFlow Demo</title>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/map/js/china.js"></script>
     <style>
         :root {
             --bg-base: #09111b;
@@ -119,9 +118,15 @@
             font-weight: 700;
         }
 
-        .main-grid {
+        .overview-layout {
             display: grid;
-            grid-template-columns: 1.65fr 1fr;
+            grid-template-columns: 24% 1fr 26%;
+            gap: 16px;
+        }
+
+        .overview-side {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
             gap: 16px;
         }
 
@@ -147,6 +152,41 @@
 
         .panel.large .chart {
             height: 420px;
+        }
+
+        .map-panel {
+            position: relative;
+            min-height: 420px;
+        }
+
+        .map-panel .panel-title {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 1;
+            margin-bottom: 0;
+        }
+
+        .summary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .summary-item {
+            padding-left: 12px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .summary-label {
+            color: var(--text-sub);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .summary-value {
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         .control-bar {
@@ -180,8 +220,12 @@
         }
 
         @media (max-width: 1200px) {
-            .metrics, .main-grid {
+            .metrics, .overview-layout, .main-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .overview-side {
+                grid-template-rows: none;
             }
 
             .control-bar {
@@ -210,31 +254,56 @@
                     <div id="metric-city-count" class="metric-value">--</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">日均客流总量</div>
+                    <div class="metric-label">最新统计日期</div>
                     <div id="metric-total-flow" class="metric-value">--</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">上海站点总数</div>
+                    <div class="metric-label">全国最新总客流</div>
                     <div id="metric-station-count" class="metric-value">--</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">换乘站数量</div>
+                    <div class="metric-label">监测时间跨度</div>
                     <div id="metric-transfer-count" class="metric-value">--</div>
                 </div>
             </div>
 
-            <div class="main-grid">
-                <div class="panel large">
-                    <div class="panel-title">全国地铁城市气泡图</div>
-                    <div id="city-map" class="chart"></div>
-                </div>
+            <div class="overview-layout">
                 <div class="panel">
-                    <div class="panel-title">客流 Top10</div>
+                    <div class="panel-title">客流 Top10 城市</div>
                     <div id="top10-chart" class="chart"></div>
                 </div>
-                <div class="panel">
-                    <div class="panel-title">月度趋势</div>
-                    <div id="trend-chart" class="chart"></div>
+
+                <div class="panel large map-panel">
+                    <div class="panel-title">全国线网客流强度分布图</div>
+                    <div id="city-map" class="chart"></div>
+                </div>
+
+                <div class="overview-side">
+                    <div class="panel">
+                        <div class="panel-title">近 15 天客流趋势对比</div>
+                        <div id="trend-chart" class="chart"></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title">最新监测摘要</div>
+                        <div class="summary-list">
+                            <div class="summary-item">
+                                <div class="summary-label">监测峰值城市</div>
+                                <div id="summary-peak-city" class="summary-value">--</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">上海站点总数</div>
+                                <div id="summary-station-count" class="summary-value">--</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">换乘站数量</div>
+                                <div id="summary-transfer-count" class="summary-value">--</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">数据来源</div>
+                                <div id="summary-source" class="summary-value">--</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -286,6 +355,8 @@
         let currentStation = "人民广场";
         let playing = false;
         let timer = null;
+        const chinaGeoUrl = "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json";
+        let shanghaiTopology = { lines: [], extent: null };
 
         function formatHour(hour) {
             return `${String(hour).padStart(2, "0")}:00`;
@@ -313,93 +384,159 @@
             ]);
 
             document.getElementById("metric-city-count").textContent = overview.metrics.city_count;
-            document.getElementById("metric-total-flow").textContent = `${overview.metrics.total_daily_flow} 万`;
-            document.getElementById("metric-station-count").textContent = overview.metrics.station_count;
-            document.getElementById("metric-transfer-count").textContent = overview.metrics.transfer_station_count;
+            document.getElementById("metric-total-flow").textContent = overview.metrics.latest_stat_date;
+            document.getElementById("metric-station-count").textContent = `${overview.metrics.total_daily_flow} 万`;
+            document.getElementById("metric-transfer-count").textContent = `${overview.metrics.tracked_days} 天`;
+            document.getElementById("summary-peak-city").textContent = overview.meta.peak_city ? `${overview.meta.peak_city.city_name} · ${overview.meta.peak_city.value} 万人次` : "--";
+            document.getElementById("summary-station-count").textContent = `${overview.metrics.station_count} 站`;
+            document.getElementById("summary-transfer-count").textContent = `${overview.metrics.transfer_station_count} 站`;
+            document.getElementById("summary-source").textContent = overview.meta.source || "--";
 
-            cityMapChart.setOption({
-                backgroundColor: "transparent",
-                tooltip: { trigger: "item" },
-                geo: {
-                    map: "china",
-                    roam: true,
-                    itemStyle: {
-                        areaColor: "#152033",
-                        borderColor: "#314764",
+            const mapData = cities
+                .filter((item) => Number.isFinite(Number(item.longitude)) && Number.isFinite(Number(item.latitude)))
+                .map((item) => ({
+                    name: item.city_name,
+                    value: [Number(item.longitude), Number(item.latitude), Number(item.avg_daily_flow)],
+                    statDate: item.stat_date,
+                }));
+            const values = mapData.map((item) => item.value[2]);
+            const minValue = values.length ? Math.min(...values) : 0;
+            const maxValue = values.length ? Math.max(...values) : 1;
+
+            const renderCityMap = (hasGeoJson) => {
+                const option = {
+                    backgroundColor: "transparent",
+                    tooltip: {
+                        trigger: "item",
+                        formatter: (params) => `${params.name}<br/>最新客流：${params.value[2]} 万人次<br/>统计日期：${params.data.statDate}`,
                     },
-                    emphasis: {
-                        itemStyle: {
-                            areaColor: "#1d2c45",
+                    visualMap: {
+                        type: "continuous",
+                        min: minValue,
+                        max: maxValue,
+                        calculable: true,
+                        inRange: {
+                            color: ["#00b365", "#0081ff", "#faad14", "#e60026"],
+                            symbolSize: [8, 26],
                         },
+                        textStyle: { color: "#8b9bb4" },
+                        bottom: 12,
+                        left: 12,
+                        itemHeight: 92,
+                        itemWidth: 10,
                     },
-                },
-                series: [{
-                    type: "scatter",
-                    coordinateSystem: "geo",
-                    data: cities.map((item) => ({
-                        name: item.city_name,
-                        value: [item.longitude, item.latitude, item.avg_daily_flow],
-                    })),
-                    symbolSize(value) {
-                        return Math.max(12, value[2] / 40);
-                    },
-                    itemStyle: {
-                        color: "#00d2ff",
-                        shadowBlur: 16,
-                        shadowColor: "rgba(0, 210, 255, 0.4)",
-                    },
-                }],
-            });
+                    series: [{
+                        type: "scatter",
+                        coordinateSystem: hasGeoJson ? "geo" : "cartesian2d",
+                        data: mapData,
+                        itemStyle: { opacity: 0.9 },
+                        label: {
+                            show: true,
+                            formatter: "{b}",
+                            position: "right",
+                            color: "#8b9bb4",
+                            fontSize: 10,
+                        },
+                    }],
+                };
+
+                if (hasGeoJson) {
+                    option.geo = {
+                        map: "china",
+                        roam: true,
+                        zoom: 1.15,
+                        center: [105, 36],
+                        itemStyle: { areaColor: "#0c1421", borderColor: "#1b263b", borderWidth: 1 },
+                        emphasis: { itemStyle: { areaColor: "#122036" }, label: { show: false } },
+                    };
+                } else {
+                    option.xAxis = { type: "value", show: false, min: 70, max: 140 };
+                    option.yAxis = { type: "value", show: false, min: 15, max: 55 };
+                }
+
+                cityMapChart.setOption(option, true);
+            };
+
+            try {
+                const geoJson = await fetch(chinaGeoUrl).then((response) => response.json());
+                echarts.registerMap("china", geoJson);
+                renderCityMap(true);
+            } catch (error) {
+                console.warn("China geojson unavailable, fallback to scatter view.", error);
+                renderCityMap(false);
+            }
 
             top10Chart.setOption({
-                tooltip: { trigger: "axis" },
-                xAxis: {
-                    type: "value",
-                    axisLabel: { color: "#9db0c8" },
-                    splitLine: { lineStyle: { color: "#22334b" } },
-                },
+                grid: { top: 10, bottom: 20, left: 45, right: 40 },
+                tooltip: { trigger: "item", formatter: (params) => `${params.name}<br/>最新客流：${params.value} 万人次` },
+                xAxis: { type: "value", show: false },
                 yAxis: {
                     type: "category",
                     data: overview.top10.map((item) => item.city_name).reverse(),
-                    axisLabel: { color: "#dce7f5" },
+                    axisLine: { show: false },
+                    axisTick: { show: false },
+                    axisLabel: { color: "#8b9bb4" },
                 },
                 series: [{
                     type: "bar",
                     data: overview.top10.map((item) => item.value).reverse(),
-                    itemStyle: { color: "#0081ff" },
+                    barWidth: 22,
+                    itemStyle: { color: "#0081ff", borderRadius: [0, 4, 4, 0] },
+                    label: { show: true, position: "right", color: "#00d2ff", fontSize: 12, fontWeight: 600 },
                 }],
             });
 
             trendChart.setOption({
+                grid: { top: 30, bottom: 20, left: 40, right: 12 },
                 tooltip: { trigger: "axis" },
-                legend: { textStyle: { color: "#dce7f5" } },
+                legend: {
+                    data: ["全国总量", "上海"],
+                    top: 0,
+                    right: 0,
+                    textStyle: { color: "#8b9bb4" },
+                    icon: "circle",
+                    itemWidth: 8,
+                },
                 xAxis: {
                     type: "category",
                     data: overview.trend.map((item) => item.label),
-                    axisLabel: { color: "#9db0c8" },
+                    axisLine: { lineStyle: { color: "#212d40" } },
+                    axisLabel: { color: "#8b9bb4" },
                 },
                 yAxis: {
                     type: "value",
-                    axisLabel: { color: "#9db0c8" },
-                    splitLine: { lineStyle: { color: "#22334b" } },
+                    splitLine: { lineStyle: { color: "#212d40", type: "dashed" } },
+                    axisLabel: { color: "#8b9bb4" },
                 },
                 series: [
                     {
-                        name: "全国",
+                        name: "全国总量",
                         type: "line",
                         smooth: true,
+                        symbol: "none",
                         data: overview.trend.map((item) => item.national_flow),
-                        itemStyle: { color: "#00d2ff" },
+                        itemStyle: { color: "#64748b" },
+                        lineStyle: { width: 2, type: "dashed" },
                     },
                     {
                         name: "上海",
                         type: "line",
                         smooth: true,
                         data: overview.trend.map((item) => item.shanghai_flow),
-                        itemStyle: { color: "#faad14" },
+                        itemStyle: { color: "#00d2ff" },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: "rgba(0, 210, 255, 0.20)" },
+                                { offset: 1, color: "rgba(0, 210, 255, 0)" },
+                            ]),
+                        },
                     },
                 ],
             });
+        }
+
+        async function loadTopology() {
+            shanghaiTopology = await request("/shanghai/topology");
         }
 
         async function loadShanghai() {
@@ -416,28 +553,82 @@
                 currentStation = flow[0].station_name;
             }
 
+            const extent = shanghaiTopology.extent || {};
+            const thresholds = { yellow: 8, red: 18 };
+            const lineSeries = (shanghaiTopology.lines || []).map((line) => ({
+                name: line.line_name,
+                type: "line",
+                data: line.points,
+                showSymbol: false,
+                smooth: false,
+                silent: true,
+                lineStyle: {
+                    width: 4,
+                    color: line.color,
+                    opacity: 0.92,
+                },
+                z: 1,
+            }));
+
             scatterChart.setOption({
-                tooltip: { trigger: "item" },
-                xAxis: { show: false, min: "dataMin", max: "dataMax" },
-                yAxis: { show: false, min: "dataMin", max: "dataMax" },
-                series: [{
-                    type: "scatter",
-                    data: flow.map((item) => ({
-                        name: item.station_name,
-                        value: [item.plot_x, item.plot_y, item.crowd_index, item.avg_flow],
-                    })),
-                    symbolSize(value) {
-                        return Math.max(8, value[2] / 6);
+                tooltip: {
+                    trigger: "item",
+                    formatter: (params) => {
+                        if (params.componentSubType === "line") {
+                            return params.seriesName;
+                        }
+                        return [
+                            params.name,
+                            `小时客流：${params.data.value[3]}`,
+                            `拥挤指数：${params.data.value[2]}`,
+                            `线路：${params.data.lineNames}`,
+                        ].join("<br/>");
                     },
-                    itemStyle: {
-                        color(params) {
-                            const v = params.value[2];
-                            if (v >= 75) return "#e60026";
-                            if (v >= 45) return "#faad14";
-                            return "#00b365";
+                },
+                xAxis: { show: false, min: extent.min_x ? extent.min_x - 1200 : "dataMin", max: extent.max_x ? extent.max_x + 1200 : "dataMax", scale: true },
+                yAxis: { show: false, min: extent.min_y ? extent.min_y - 1200 : "dataMin", max: extent.max_y ? extent.max_y + 1200 : "dataMax", scale: true },
+                dataZoom: [
+                    {
+                        type: "inside",
+                        xAxisIndex: 0,
+                        filterMode: "none",
+                        zoomOnMouseWheel: true,
+                        moveOnMouseMove: true,
+                    },
+                    {
+                        type: "inside",
+                        yAxisIndex: 0,
+                        filterMode: "none",
+                        zoomOnMouseWheel: true,
+                        moveOnMouseMove: true,
+                    },
+                ],
+                series: [
+                    ...lineSeries,
+                    {
+                        type: "scatter",
+                        z: 3,
+                        data: flow.map((item) => ({
+                            name: item.station_name,
+                            value: [item.plot_x, item.plot_y, item.crowd_index, item.avg_flow],
+                            lineNames: item.line_names,
+                        })),
+                        symbolSize(value) {
+                            return Math.max(8, value[2] / 6);
                         },
-                    },
-                }],
+                        itemStyle: {
+                            color(params) {
+                                const v = params.value[2];
+                                if (v <= 0) return "#5f6f86";
+                                if (v >= thresholds.red) return "#e60026";
+                                if (v >= thresholds.yellow) return "#faad14";
+                                return "#00b365";
+                            },
+                            borderColor: "#ffffff",
+                            borderWidth: 1,
+                        },
+                    }
+                ],
             });
 
             lineHeatChart.setOption({
@@ -524,10 +715,16 @@
             [cityMapChart, top10Chart, trendChart, scatterChart, lineHeatChart, stationDetailChart].forEach((chart) => chart.resize());
         });
 
-        Promise.all([loadOverview(), loadShanghai()]).catch((error) => {
-            console.error(error);
-            alert("数据加载失败，请先启动 Flask 后端，再打开 demo.html。");
-        });
+        (async () => {
+            try {
+                await loadOverview();
+                await loadTopology();
+                await loadShanghai();
+            } catch (error) {
+                console.error(error);
+                alert("数据加载失败，请先启动 Flask 后端，再打开 demo.html。");
+            }
+        })();
     </script>
 </body>
 </html>

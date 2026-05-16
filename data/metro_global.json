@@ -1,0 +1,2421 @@
+{
+  "source": "https://metrodb.org/",
+  "scraped_at_epoch": 1778913891,
+  "city_count": 36,
+  "failed_count": 0,
+  "cities": [
+    {
+      "slug": "beijing",
+      "city": "北京",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 1080.4
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 1087.8
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 1089.25
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 674.3
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 1078.07
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 1090.24
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 1078.61
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 1075.09
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 686.91
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 732.24
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 772.05
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 739.94
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 837.86
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 1256.27
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 1169.51
+        }
+      ]
+    },
+    {
+      "slug": "shanghai",
+      "city": "上海",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 1173.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 1162.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 1154.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 709.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 1123.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 1159.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 1139.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 1154.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 766.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 829.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 792.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 850.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 959.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 1289.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 1123.0
+        }
+      ]
+    },
+    {
+      "slug": "guangzhou",
+      "city": "广州",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 958.5
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 975.1
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 985.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 797.9
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 1002.6
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 945.6
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 967.3
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 992.2
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 882.4
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 948.3
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 832.5
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 1094.2
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 1239.73
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 1283.93
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 988.1
+        }
+      ]
+    },
+    {
+      "slug": "shenzhen",
+      "city": "深圳",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 994.84
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 983.1
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 988.66
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 796.74
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 1042.33
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 975.2
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 975.59
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 970.8
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 687.54
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 829.41
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 718.77
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 1113.1
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 1155.6
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 1165.8
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 967.57
+        }
+      ]
+    },
+    {
+      "slug": "chengdu",
+      "city": "成都",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 684.33
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 679.09
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 689.3
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 483.92
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 712.21
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 690.68
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 692.7
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 719.19
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 598.44
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 617.67
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 624.91
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 654.2
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 676.18
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 877.07
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 740.96
+        }
+      ]
+    },
+    {
+      "slug": "wuhan",
+      "city": "武汉",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 395.7
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 401.22
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 409.37
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 352.34
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 430.7
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 424.03
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 385.99
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 438.15
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 428.04
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 462.94
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 527.41
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 368.68
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 536.45
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 555.04
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 454.53
+        }
+      ]
+    },
+    {
+      "slug": "chongqing",
+      "city": "重庆",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 419.1
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 417.7
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 420.8
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 358.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 459.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 421.9
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 416.1
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 423.6
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 411.6
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 469.1
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 507.1
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 512.9
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 506.6
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 561.2
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 436.2
+        }
+      ]
+    },
+    {
+      "slug": "xian",
+      "city": "西安",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 412.8
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 417.7
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 420.1
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 368.1
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 450.2
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 426.9
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 426.8
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 413.3
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 429.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 450.7
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 499.1
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 505.6
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 406.9
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 557.9
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 460.3
+        }
+      ]
+    },
+    {
+      "slug": "hangzhou",
+      "city": "杭州",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 551.5
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "nanjing",
+      "city": "南京",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 335.41
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 331.26
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 335.81
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 289.05
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 362.21
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 350.17
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 333.42
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 360.17
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 348.9
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 425.52
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 451.84
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 400.58
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 493.99
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 474.19
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 376.8
+        }
+      ]
+    },
+    {
+      "slug": "tianjin",
+      "city": "天津",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 193.56
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 195.2
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 196.44
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 160.7
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 203.24
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 204.57
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 199.8
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 202.85
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 178.17
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 211.85
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 226.11
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 213.51
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 218.86
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 251.18
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 214.03
+        }
+      ]
+    },
+    {
+      "slug": "zhengzhou",
+      "city": "郑州",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 217.47
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 218.74
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 225.47
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 236.09
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 269.11
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 242.5
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 228.84
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 245.77
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 287.91
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 256.47
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 277.14
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 259.75
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 292.15
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 342.81
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 253.53
+        }
+      ]
+    },
+    {
+      "slug": "changsha",
+      "city": "长沙",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 324.84
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 353.53
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 394.79
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 336.74
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 430.3
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 438.97
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 310.99
+        }
+      ]
+    },
+    {
+      "slug": "shenyang",
+      "city": "沈阳",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 203.56
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 203.17
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 207.29
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 143.04
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 207.82
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 212.02
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 206.44
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 189.58
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 184.67
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 205.1
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 206.09
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 204.68
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 219.34
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 247.51
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 226.7
+        }
+      ]
+    },
+    {
+      "slug": "suzhou",
+      "city": "苏州",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 193.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 191.6
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 192.8
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 182.4
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 211.1
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 199.8
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 190.8
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 200.1
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 192.3
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 263.7
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 301.4
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 303.3
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 332.8
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 257.7
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 194.0
+        }
+      ]
+    },
+    {
+      "slug": "nanning",
+      "city": "南宁",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 137.6
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 150.6
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 139.5
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 167.8
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 174.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 152.1
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "changchun",
+      "city": "长春",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 85.68
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 84.32
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 85.72
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 61.14
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 88.5
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 85.76
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 84.44
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 75.65
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 78.4
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 86.46
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 83.36
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 83.07
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 92.05
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 104.05
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 89.29
+        }
+      ]
+    },
+    {
+      "slug": "taiyuan",
+      "city": "太原",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "qingdao",
+      "city": "青岛",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "dalian",
+      "city": "大连",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 74.91
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 70.77
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 83.27
+        }
+      ]
+    },
+    {
+      "slug": "hohhot",
+      "city": "呼和浩特",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "changzhou",
+      "city": "常州",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 18.77
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 18.31
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 18.78
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 20.44
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 22.27
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 20.23
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 18.91
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 21.12
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 24.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 26.76
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 29.31
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 25.45
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 33.32
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 30.76
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 20.4
+        }
+      ]
+    },
+    {
+      "slug": "kunming",
+      "city": "昆明",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 77.41
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 73.96
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 75.89
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 66.46
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 79.58
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 74.88
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 76.52
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 82.94
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 97.01
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 91.51
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 68.18
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 87.99
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 108.75
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 110.21
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 83.7
+        }
+      ]
+    },
+    {
+      "slug": "dongguan",
+      "city": "东莞",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 41.36
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 41.67
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 63.26
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 64.49
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "guiyang",
+      "city": "贵阳",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 74.76
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 70.21
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 74.93
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 71.24
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 80.08
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 75.61
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 74.29
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 77.5
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 87.93
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 101.4
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 93.23
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 98.56
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 111.46
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 107.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 78.39
+        }
+      ]
+    },
+    {
+      "slug": "nanchang",
+      "city": "南昌",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 95.07
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 107.05
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 108.54
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 112.02
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 120.97
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 110.17
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 95.21
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 121.57
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 151.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 167.1
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 183.49
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 179.45
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 222.27
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 182.34
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 112.45
+        }
+      ]
+    },
+    {
+      "slug": "wuxi",
+      "city": "无锡",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 112.16
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "hefei",
+      "city": "合肥",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 180.49
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 181.89
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 179.23
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 172.63
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 202.14
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 185.84
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 178.8
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 198.55
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 200.83
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 197.78
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 197.15
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 166.51
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 217.56
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 253.53
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 203.78
+        }
+      ]
+    },
+    {
+      "slug": "harbin",
+      "city": "哈尔滨",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 113.12
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 112.05
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 113.99
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 113.79
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 123.46
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 116.46
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 110.76
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 112.18
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 116.25
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 139.27
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 142.6
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 138.65
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 149.6
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 138.93
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 123.1
+        }
+      ]
+    },
+    {
+      "slug": "shijiazhuang",
+      "city": "石家庄",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 44.04
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 44.33
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 45.79
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 47.04
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 51.57
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 47.38
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 47.53
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 51.91
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 57.01
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 51.97
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 52.25
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 49.18
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 54.63
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 65.73
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 52.61
+        }
+      ]
+    },
+    {
+      "slug": "xiamen",
+      "city": "厦门",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 76.72
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 79.88
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 81.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 68.63
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 85.69
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 78.14
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 81.58
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 82.73
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 69.34
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 77.12
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 88.87
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 106.88
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 106.94
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 98.03
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 78.44
+        }
+      ]
+    },
+    {
+      "slug": "lanzhou",
+      "city": "兰州",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 35.34
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 34.68
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 35.67
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 34.48
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 37.69
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 35.46
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 35.52
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 38.85
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 45.89
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 48.81
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 50.39
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 48.97
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 48.91
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 54.41
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 39.87
+        }
+      ]
+    },
+    {
+      "slug": "wuhu",
+      "city": "芜湖",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "foshan",
+      "city": "佛山",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 25.44
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 26.44
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 26.51
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 24.94
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 28.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 25.04
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 25.4
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 27.89
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 30.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 36.86
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 34.08
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 49.1
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 50.31
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 39.93
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 25.89
+        }
+      ]
+    },
+    {
+      "slug": "shaoxing",
+      "city": "绍兴",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "nantong",
+      "city": "南通",
+      "latest_update": "2026-05-13",
+      "recent_15_days": [
+        {
+          "date": "2026-05-13",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-12",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-11",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-10",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-09",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-08",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-07",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-06",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-05",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-03",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-02",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "ridership_10k": 0.0
+        },
+        {
+          "date": "2026-04-29",
+          "ridership_10k": 0.0
+        }
+      ]
+    }
+  ],
+  "failures": []
+}

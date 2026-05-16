@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetroFlow</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        /* CSS 变量与重置 - 扁平化地铁配色 */
+        :root {
+            --bg-base: #0a0f18;       /* 更深邃扁平的背景 */
+            --bg-panel: #131a28;      /* 面板背景 */
+            --bg-panel-hover: #1b2436;
+            --border-color: #212d40;  /* 边框颜色 */
+            --text-main: #e2e8f0;     /* 主文本颜色 */
+            --text-sub: #8b9bb4;      /* 辅助文本颜色 */
+            
+            /* 地铁标志色系 */
+            --primary: #0081FF;       /* 地铁科技蓝 (主色调) */
+            --cyan: #00D2FF;          /* 辅助亮青 */
+            --metro-red: #E60026;     /* 骨干红 (拥挤/1号线) */
+            --metro-green: #00B365;   /* 畅通绿 (2号线) */
+            --metro-yellow: #FAAD14;  /* 繁忙黄 (提醒) */
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            gap: 16px;
+        }
+
+        /* 极简通用 SVG 样式 */
+        .svg-icon {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* --- 顶部导航栏 --- */
+        header {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            flex-shrink: 0;
+        }
+        
+        .header-left { display: flex; align-items: center; gap: 14px; }
+        .logo-icon { width: 34px; height: 34px; background: var(--primary); border-radius: 8px; display: flex; justify-content: center; align-items: center; }
+        .logo-icon svg { width: 20px; height: 20px; stroke: #fff; }
+        .header-title-box { display: flex; flex-direction: column; }
+        .header-title { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; }
+        .header-subtitle { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
+        
+        .header-center { display: flex; gap: 56px; height: 100%; align-items: center; }
+        .nav-tab { cursor: pointer; color: var(--text-sub); font-size: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; transition: color 0.3s; }
+        .nav-tab:hover { color: var(--text-main); }
+        .nav-tab.active { color: var(--primary); font-weight: 600; }
+        .nav-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background-color: var(--primary); border-radius: 3px 3px 0 0; }
+        .tab-icon { margin-bottom: 4px; width: 18px; height: 18px; }
+        
+        .header-right { display: flex; align-items: center; gap: 24px; text-align: right; }
+        .sys-status-text { font-size: 13px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .status-dot { width: 8px; height: 8px; background: var(--metro-green); border-radius: 50%; box-shadow: 0 0 8px var(--metro-green); }
+
+        /* --- 页面主容器 --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            position: relative;
+        }
+
+        .tab-content {
+            display: none; 
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .tab-content.active { display: flex; }
+
+        /* 面板通用样式 */
+        .panel {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .panel-header { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
+        .panel-header svg { width: 16px; height: 16px; color: var(--primary); }
+        .panel-header-sub { font-size: 12px; color: var(--text-sub); font-weight: normal; margin-left: auto; }
+        .panel-body { flex: 1; min-height: 0; width: 100%; }
+
+        /* ================= Tab 1: 全国概览 ================= */
+        .metrics-row { display: flex; gap: 16px; height: 96px; flex-shrink: 0; }
+        .metric-card { flex: 1; display: flex; align-items: center; gap: 18px; background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 8px; padding: 0 24px; }
+        .m-icon { width: 48px; height: 48px; border-radius: 8px; display: flex; justify-content: center; align-items: center; }
+        .m-icon.blue { background: rgba(0, 129, 255, 0.1); color: var(--primary); }
+        .m-icon.cyan { background: rgba(0, 210, 255, 0.1); color: var(--cyan); }
+        .m-icon.yellow { background: rgba(250, 173, 20, 0.1); color: var(--metro-yellow); }
+        .m-icon.green { background: rgba(0, 179, 101, 0.1); color: var(--metro-green); }
+        .m-icon svg { width: 22px; height: 22px; }
+        
+        .m-info { display: flex; flex-direction: column; }
+        .m-label { font-size: 13px; color: var(--text-sub); margin-bottom: 4px; }
+        .m-value { font-size: 26px; font-weight: bold; color: #fff; font-family: -apple-system, sans-serif;}
+        .m-unit { font-size: 13px; font-weight: normal; color: var(--text-sub); margin-left: 6px; }
+
+        .t1-layout { display: flex; flex: 1; gap: 16px; min-height: 0; }
+        .t1-left { width: 24%; display: flex; flex-direction: column; }
+        .t1-center { flex: 1; display: flex; flex-direction: column; }
+        .t1-right { width: 26%; display: flex; flex-direction: column; gap: 16px; }
+
+        /* 行业快报列表 */
+        .news-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+        .news-item { padding-left: 12px; border-left: 3px solid var(--primary); }
+        .n-title { font-size: 14px; color: var(--text-main); margin-bottom: 6px; cursor: pointer; transition: 0.2s;}
+        .n-title:hover { color: var(--primary); }
+        .n-time { font-size: 12px; color: var(--text-sub); }
+
+        /* ================= Tab 2: 宁线剖析 ================= */
+        .control-bar {
+            height: 72px; background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 8px;
+            display: flex; align-items: center; padding: 0 24px; gap: 40px; flex-shrink: 0;
+        }
+        .time-monitor { display: flex; flex-direction: column; width: 100px; }
+        .tm-label { font-size: 12px; color: var(--text-sub); margin-bottom: 2px;}
+        .tm-val { font-size: 26px; font-weight: bold; color: var(--primary); }
+
+        .slider-box { flex: 1; position: relative; padding-top: 15px;}
+        .time-scale { position: absolute; top: -5px; width: 100%; display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sub); pointer-events: none; }
+        
+        /* 自定义 Range 滑块 */
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]:focus { outline: none; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #232d40; border-radius: 3px; }
+        input[type=range]::-webkit-slider-thumb { height: 18px; width: 18px; border-radius: 50%; background: var(--primary); cursor: pointer; -webkit-appearance: none; margin-top: -6px; border: 2px solid #fff;}
+
+        .ctrl-btns { display: flex; gap: 12px; }
+        .btn { padding: 8px 20px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-panel-hover); color: var(--text-main); font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn svg { width: 14px; height: 14px; }
+        .btn:hover { background: #232d40; }
+        .btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .btn-primary:hover { background: #3399ff; border-color: #3399ff; }
+
+        .t2-layout { display: flex; flex: 1; gap: 16px; min-height: 0; }
+        .t2-left { flex: 1; display: flex; flex-direction: column; position: relative;}
+        .t2-right { width: 26%; display: flex; flex-direction: column; gap: 16px; }
+
+        /* 拓扑图图例 */
+        .map-legend { position: absolute; top: 16px; left: 16px; background: rgba(19, 26, 40, 0.85); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 8px; z-index: 10; backdrop-filter: blur(4px); }
+        .ml-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: var(--text-main);}
+        .ml-items { display: flex; gap: 16px; }
+        .ml-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-sub);}
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.green { background: var(--metro-green); }
+        .dot.yellow { background: var(--metro-yellow); }
+        .dot.red { background: var(--metro-red); }
+
+        /* 右侧控件 */
+        .select-box select { width: 100%; padding: 10px 12px; background: #0a0f18; border: 1px solid var(--border-color); color: var(--text-main); border-radius: 6px; outline: none; font-size: 13px;}
+    </style>
+</head>
+<body>
+
+    <!-- 头部导航 -->
+    <header>
+        <div class="header-left">
+            <div class="logo-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19l4-4M20 19l-4-4M3 11h18M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"></path><circle cx="8" cy="15" r="1"></circle><circle cx="16" cy="15" r="1"></circle><rect x="3" y="11" width="18" height="8" rx="2"></rect></svg>
+            </div>
+            <div class="header-title-box">
+                <div class="header-title">MetroFlow</div>
+                <div class="header-subtitle">地铁时空客流可视化</div>
+            </div>
+        </div>
+        
+        <div class="header-center">
+            <div class="nav-tab active" onclick="switchTab('tab1')">
+                <svg class="svg-icon tab-icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+                全国线网概览
+            </div>
+            <div class="nav-tab" onclick="switchTab('tab2')">
+                <svg class="svg-icon tab-icon" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg>
+                单线微观剖析
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- ================= Tab 1 内容 ================= -->
+        <div id="tab1" class="tab-content active">
+            <!-- 顶部指标卡片 -->
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="m-icon blue">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01M8 18h.01M16 18h.01M12 18h.01"></path></svg>
+                    </div>
+                    <div class="m-info">
+                        <span class="m-label">开通地铁城市</span>
+                        <div><span class="m-value">58</span><span class="m-unit">座</span></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="m-icon cyan">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    </div>
+                    <div class="m-info">
+                        <span class="m-label">全国日均总客流</span>
+                        <div><span class="m-value">9,245.8</span><span class="m-unit">万人次</span></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="m-icon yellow">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 18h18M3 6h18M8 12h8M12 6v12"></path></svg>
+                    </div>
+                    <div class="m-info">
+                        <span class="m-label">运营线路总里程</span>
+                        <div><span class="m-value">11,240</span><span class="m-unit">km</span></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="m-icon green">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M3.51 15A9 9 0 0 0 18.36 18.36L23 14"></path></svg>
+                    </div>
+                    <div class="m-info">
+                        <span class="m-label">平均换乘系数</span>
+                        <div><span class="m-value">1.82</span><span class="m-unit">次/人</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主体图表区 -->
+            <div class="t1-layout">
+                <!-- 左侧：Top 10 -->
+                <div class="panel t1-left">
+                    <div class="panel-header">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> 
+                        客流Top 10城市
+                    </div>
+                    <div class="panel-body" id="chart-top10"></div>
+                </div>
+
+                <!-- 中间：地图分布 -->
+                <div class="panel t1-center">
+                    <div class="panel-header" style="position: absolute; top: 16px; left: 16px; z-index: 10;">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+                        全国线网客流强度分布图
+                    </div>
+                    <div class="panel-body" id="chart-map" style="height: 100%;"></div>
+                </div>
+
+                <!-- 右侧：趋势与快报 -->
+                <div class="t1-right">
+                    <div class="panel" style="flex: 1;">
+                        <div class="panel-header">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                            客流增长趋势对比
+                        </div>
+                        <div class="panel-body" id="chart-trend"></div>
+                    </div>
+                    <div class="panel" style="flex: 1;">
+                        <div class="panel-header">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            最新行业快报
+                        </div>
+                        <div class="panel-body" style="overflow-y: auto;">
+                            <ul class="news-list">
+                                <li class="news-item">
+                                    <div class="n-title">南京地铁11号线今日开通试运营</div>
+                                    <div class="n-time">2026-03-29 09:00</div>
+                                </li>
+                                <li class="news-item">
+                                    <div class="n-title">上海地铁单日客流突破1300万人次</div>
+                                    <div class="n-time">2026-03-28 22:30</div>
+                                </li>
+                                <li class="news-item">
+                                    <div class="n-title">成都轨道交通18号线三期工程进度更新</div>
+                                    <div class="n-time">2026-03-28 15:45</div>
+                                </li>
+                                <li class="news-item">
+                                    <div class="n-title">北京地铁启动全自动驾驶技术升级计划</div>
+                                    <div class="n-time">2026-03-27 10:20</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= Tab 2 内容 ================= -->
+        <div id="tab2" class="tab-content">
+            <!-- 顶部控制条 -->
+            <div class="control-bar">
+                <div class="time-monitor">
+                    <span class="tm-label">当前观测时段</span>
+                    <span class="tm-val" id="time-display">08:30</span>
+                </div>
+                
+                <div class="slider-box">
+                    <div class="time-scale">
+                        <span>06:00</span>
+                        <span>09:00</span>
+                        <span>12:00</span>
+                        <span>15:00</span>
+                        <span>18:00</span>
+                        <span>21:00</span>
+                        <span>23:00</span>
+                    </div>
+                    <!-- min=0(06:00), max=34(23:00) 步长半小时 -->
+                    <input type="range" id="time-slider" min="0" max="34" value="5"> 
+                </div>
+
+                <div class="ctrl-btns">
+                    <button class="btn" id="btn-play">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        动态回放
+                    </button>
+                    <button class="btn btn-primary">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        数据导出
+                    </button>
+                </div>
+            </div>
+
+            <!-- 主体图表区 -->
+            <div class="t2-layout">
+                <!-- 左侧：拓扑监控图 -->
+                <div class="panel t2-left">
+                    <div class="map-legend">
+                        <div class="ml-title">城市线网监控</div>
+                        <div class="ml-items">
+                            <div class="ml-item"><div class="dot green"></div>畅通</div>
+                            <div class="ml-item"><div class="dot yellow"></div>繁忙</div>
+                            <div class="ml-item"><div class="dot red"></div>拥挤</div>
+                        </div>
+                    </div>
+                    <div class="panel-body" id="chart-topo" style="height: 100%;"></div>
+                </div>
+
+                <!-- 右侧：分析面板 -->
+                <div class="t2-right">
+                    <div class="panel" style="padding: 16px;">
+                        <div class="panel-header" style="margin-bottom: 12px;">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                            线路快速筛选
+                        </div>
+                        <div class="select-box">
+                            <select id="line-select">
+                                <option value="all">-- 全线网监控 --</option>
+                                <option value="1">1号线 (骨干纵线)</option>
+                                <option value="2">2号线 (骨干横线)</option>
+                                <option value="3">3号线 (通勤过江)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="panel" style="flex: 1;">
+                        <div class="panel-header">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            热点客流站点 Top 5
+                            <span class="panel-header-sub" style="color: var(--primary);">实时更新</span>
+                        </div>
+                        <div class="panel-body" id="chart-hotstation"></div>
+                    </div>
+
+                    <div class="panel" style="flex: 1;">
+                        <div class="panel-header">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            全天客流负荷趋势
+                        </div>
+                        <div class="panel-body" id="chart-loadtrend"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 图表渲染与逻辑脚本 -->
+    <script>
+        // === 全局数据准备 ===
+        const cityData =[
+            {name: '上海', value: 1145.2}, {name: '北京', value: 1021.8},
+            {name: '广州', value: 912.4}, {name: '深圳', value: 845.6},
+            {name: '成都', value: 685.2}, {name: '杭州', value: 421.5},
+            {name: '武汉', value: 395.8}, {name: '南京', value: 382.4},
+            {name: '重庆', value: 365.1}, {name: '西安', value: 342.9}
+        ];
+        
+        const geoCoords = {
+            '上海':[121.4737, 31.2304], '北京':[116.4053, 39.9051],
+            '广州':[113.2806, 23.1252], '深圳':[114.0859, 22.5470],
+            '成都':[104.0657, 30.6595], '杭州':[120.1536, 30.2875],
+            '武汉':[114.2986, 30.5844], '南京':[118.7965, 32.0584],
+            '重庆':[106.5050, 29.5332], '西安': [108.9480, 34.2223],
+            '天津':[117.1902, 39.1256], '苏州':[120.6195, 31.2994]
+        };
+
+        // 线网模拟拓扑数据 (对应地铁骨干红、生态绿、科技蓝)
+        const njLines =[
+            { id: 'L1', name: '1号线', color: '#E60026', coords: [[45, 90], [45, 70],[50, 50], [45, 30], [45, 10]] },
+            { id: 'L2', name: '2号线', color: '#00B365', coords: [[10, 55], [30, 52],[50, 50],[70, 48], [90, 45]] },
+            { id: 'L3', name: '3号线', color: '#0081FF', coords: [[35, 95], [45, 70], [60, 45],[75, 25], [85, 10]] }
+        ];
+        
+        const njStations = [
+            { name: '迈皋桥', coord:[45, 90], line: 'L1' },
+            { name: '南京站', coord:[45, 70], line: 'L1', isTransfer: true },
+            { name: '新街口', coord:[50, 50], line: 'L1', isTransfer: true },
+            { name: '安德门', coord: [45, 30], line: 'L1' },
+            { name: '药科大学', coord: [45, 10], line: 'L1' },
+            { name: '油坊桥', coord:[10, 55], line: 'L2' },
+            { name: '元通', coord:[30, 52], line: 'L2' },
+            { name: '大行宫', coord:[70, 48], line: 'L2', isTransfer: true },
+            { name: '马群', coord:[90, 45], line: 'L2' },
+            { name: '林场', coord:[35, 95], line: 'L3' },
+            { name: '夫子庙', coord:[60, 45], line: 'L3' },
+            { name: '九龙湖', coord: [75, 25], line: 'L3' },
+            { name: '秣周东路', coord: [85, 10], line: 'L3' }
+        ];
+
+        let chartTop10, chartMap, chartTrend, chartTopo, chartHotStation, chartLoadTrend;
+
+        // === 初始化 ECharts ===
+        function initCharts() {
+            chartTop10 = echarts.init(document.getElementById('chart-top10'));
+            chartTrend = echarts.init(document.getElementById('chart-trend'));
+            chartMap = echarts.init(document.getElementById('chart-map'));
+
+            // Top10 扁平化加宽柱形图
+            const cDataReversed =[...cityData].reverse();
+            chartTop10.setOption({
+                grid: { top: 10, bottom: 20, left: 45, right: 40 },
+                xAxis: { type: 'value', show: false },
+                yAxis: { 
+                    type: 'category', 
+                    data: cDataReversed.map(item => item.name),
+                    axisLine: { show: false }, axisTick: { show: false },
+                    axisLabel: { color: '#8b9bb4' }
+                },
+                series:[{
+                    type: 'bar',
+                    data: cDataReversed.map(item => item.value),
+                    itemStyle: {
+                        color: '#0081FF', // 扁平纯色科技蓝
+                        borderRadius:[0, 4, 4, 0]
+                    },
+                    barWidth: 24, // 柱体加宽
+                    label: { show: true, position: 'right', color: '#0081FF', fontSize: 12, fontWeight: 600 }
+                }]
+            });
+
+            // 右侧趋势折线图
+            chartTrend.setOption({
+                grid: { top: 30, bottom: 20, left: 40, right: 10 },
+                tooltip: { trigger: 'axis' },
+                legend: { data:['2025年', '2026年'], top: 0, right: 0, textStyle: { color: '#8b9bb4' }, icon: 'circle', itemWidth: 8},
+                xAxis: { 
+                    type: 'category', data:['1月','2月','3月','4月','5月','6月'],
+                    axisLine: { lineStyle: { color: '#212d40' } },
+                    axisLabel: { color: '#8b9bb4' }
+                },
+                yAxis: { 
+                    type: 'value', splitLine: { lineStyle: { color: '#212d40', type: 'dashed' } },
+                    axisLabel: { color: '#8b9bb4' }
+                },
+                series:[
+                    { name: '2025年', type: 'line', smooth: true, data:[8100, 7800, 8500, 8600, 8900, 8800], itemStyle: { color: '#475569' }, lineStyle: { width: 2, type: 'dashed' } },
+                    { name: '2026年', type: 'line', smooth: true, data:[8300, 8200, 9245, null, null, null], itemStyle: { color: '#00D2FF' }, 
+                      areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1,[{offset: 0, color: 'rgba(0,210,255,0.2)'}, {offset: 1, color: 'rgba(0,210,255,0)'}])
+                      }
+                    }
+                ]
+            });
+
+            // 中国地图初始化
+            initMapChart();
+
+            // --- Tab 2 图表 ---
+            chartTopo = echarts.init(document.getElementById('chart-topo'));
+            chartHotStation = echarts.init(document.getElementById('chart-hotstation'));
+            chartLoadTrend = echarts.init(document.getElementById('chart-loadtrend'));
+
+            chartLoadTrend.setOption({
+                grid: { top: 30, bottom: 20, left: 35, right: 10 },
+                tooltip: { trigger: 'axis' },
+                xAxis: { 
+                    type: 'category', data:['06','08','10','12','14','16','18','20','22'],
+                    axisLine: { lineStyle: { color: '#212d40' } }, axisLabel: { color: '#8b9bb4' }
+                },
+                yAxis: { 
+                    type: 'value', max: 100, splitLine: { lineStyle: { color: '#212d40', type: 'dashed' } },
+                    axisLabel: { color: '#8b9bb4' }
+                },
+                series:[{
+                    type: 'line', smooth: true, symbol: 'none',
+                    itemStyle: { color: '#0081FF' },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1,[{offset: 0, color: 'rgba(0,129,255,0.4)'}, {offset: 1, color: 'rgba(0,129,255,0)'}])
+                    },
+                    data:[15, 85, 40, 35, 30, 45, 90, 50, 20]
+                }]
+            });
+
+            updateT2Charts(5); // 默认 08:30
+        }
+
+        // 加载并渲染中国地图
+        function initMapChart() {
+            const mapData = cityData.map(item => {
+                return { name: item.name, value: geoCoords[item.name].concat(item.value) };
+            });
+
+            fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
+                .then(response => response.json())
+                .then(geoJson => {
+                    echarts.registerMap('china', geoJson);
+                    renderMap(mapData, true);
+                })
+                .catch(err => {
+                    console.log('地图数据加载失败，使用纯散点降级显示', err);
+                    renderMap(mapData, false);
+                });
+        }
+
+        function renderMap(mapData, hasGeoJson) {
+            const option = {
+                tooltip: { trigger: 'item', formatter: p => `${p.name}<br/>日均客流: ${p.value[2]} 万人次` },
+                // 引入 visualMap 实现大小和颜色综合体现客流强度
+                visualMap: {
+                    type: 'continuous',
+                    show: true,
+                    min: 300,
+                    max: 1200,
+                    calculable: true,
+                    inRange: {
+                        color:['#00B365', '#0081FF', '#FAAD14', '#E60026'], // 从绿到红的冷暖色映射
+                        symbolSize:[8, 26] // 大小映射增强视觉张力
+                    },
+                    textStyle: { color: '#8b9bb4' },
+                    bottom: 15,
+                    left: 15,
+                    itemHeight: 100,
+                    itemWidth: 12
+                },
+                geo: hasGeoJson ? {
+                    map: 'china', roam: true, zoom: 1.2, center:[105, 36],
+                    itemStyle: { areaColor: '#0c1421', borderColor: '#1b263b', borderWidth: 1 },
+                    emphasis: { itemStyle: { areaColor: '#122036' }, label: { show: false } }
+                } : null,
+                series:[{
+                    type: 'scatter', coordinateSystem: hasGeoJson ? 'geo' : 'cartesian2d',
+                    data: mapData,
+                    itemStyle: { opacity: 0.9, shadowBlur: 0 }, // 扁平无高斯模糊阴影
+                    label: { show: true, formatter: '{b}', position: 'right', color: '#8b9bb4', fontSize: 10 }
+                }]
+            };
+            
+            if (!hasGeoJson) {
+                option.xAxis = { type: 'value', show: false, min: 70, max: 140 };
+                option.yAxis = { type: 'value', show: false, min: 15, max: 55 };
+            }
+            chartMap.setOption(option);
+        }
+
+        // === Tab 2 动态数据更新逻辑 ===
+        function getCrowdFactor(index) {
+            let factor = 0.3; 
+            if (index >= 3 && index <= 7) {
+                factor = 0.7 + (index === 5 ? 0.25 : 0); 
+            } else if (index >= 23 && index <= 27) {
+                factor = 0.65 + (index === 25 ? 0.2 : 0); 
+            } else { factor += (Math.sin(index) * 0.1); }
+            return Math.max(0.1, Math.min(1, factor));
+        }
+
+        function updateT2Charts(timeIndex) {
+            const factor = getCrowdFactor(timeIndex);
+
+            // 更新 Top 5 柱状图
+            const baseFlow = { '新街口': 40, '大行宫': 25, '南京站': 22, '南京南站': 28, '安德门': 18 };
+            const currentHot = Object.keys(baseFlow).map(name => ({
+                name: name,
+                value: Math.floor(baseFlow[name] * factor * (0.9 + Math.random()*0.2) * 10)
+            })).sort((a, b) => a.value - b.value); 
+
+            chartHotStation.setOption({
+                grid: { top: 10, bottom: 20, left: 55, right: 20 },
+                xAxis: { type: 'value', show: false },
+                yAxis: { type: 'category', data: currentHot.map(i => i.name), axisLine: {show:false}, axisTick: {show:false}, axisLabel: {color: '#8b9bb4'} },
+                series:[{
+                    type: 'bar', data: currentHot.map(i => i.value),
+                    barWidth: 14,
+                    itemStyle: {
+                        color: factor > 0.8 ? '#E60026' : (factor > 0.5 ? '#FAAD14' : '#0081FF'),
+                        borderRadius: [0, 4, 4, 0]
+                    },
+                    label: { show: true, position: 'right', color: '#fff', fontSize: 12 }
+                }]
+            });
+
+            // 更新拓扑图
+            const nodeData = njStations.map(station => {
+                let sFactor = factor * (station.isTransfer ? 1.2 : 0.9) * (0.8 + Math.random()*0.4);
+                let color = '#00B365'; // 畅通绿
+                if (sFactor > 0.9) color = '#E60026'; // 拥挤红
+                else if (sFactor > 0.6) color = '#FAAD14'; // 繁忙黄
+
+                return {
+                    name: station.name,
+                    value: station.coord,
+                    symbolSize: station.isTransfer ? 14 : 10,
+                    itemStyle: { color: color, borderColor: '#fff', borderWidth: station.isTransfer ? 2 : 1 }
+                }
+            });
+
+            const lineSeries = njLines.map(line => ({
+                type: 'lines', coordinateSystem: 'cartesian2d',
+                polyline: true, zlevel: 1,
+                lineStyle: { color: line.color, width: 4, opacity: 0.6, type: 'solid' },
+                data: [{ coords: line.coords }]
+            }));
+
+            chartTopo.setOption({
+                xAxis: { show: false, min: 0, max: 100 },
+                yAxis: { show: false, min: 0, max: 100 },
+                tooltip: { formatter: '{b}' },
+                series:[
+                    ...lineSeries,
+                    {
+                        type: 'scatter', coordinateSystem: 'cartesian2d', zlevel: 2,
+                        data: nodeData,
+                        label: { show: true, formatter: '{b}', position: 'right', color: '#e2e8f0', fontSize: 11,
+                                 textBorderColor: '#0a0f18', textBorderWidth: 2 }
+                    }
+                ]
+            });
+
+            // 全天趋势图中更新当前时间标线 
+            const xVal = timeIndex / 34 * 8;
+            chartLoadTrend.setOption({
+                series:[{
+                    markLine: {
+                        symbol:['none', 'none'], label: { show: false },
+                        lineStyle: { color: '#00D2FF', type: 'solid', width: 2 },
+                        data: [{ xAxis: xVal }]
+                    }
+                }]
+            });
+        }
+
+
+        // === 交互逻辑控制 ===
+        function switchTab(tabId) {
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            setTimeout(() => {
+                if(tabId === 'tab1') {
+                    chartTop10.resize(); chartMap.resize(); chartTrend.resize();
+                } else {
+                    chartTopo.resize(); chartHotStation.resize(); chartLoadTrend.resize();
+                }
+            }, 50);
+        }
+
+        const timeSlider = document.getElementById('time-slider');
+        const timeDisplay = document.getElementById('time-display');
+        
+        function formatTime(index) {
+            let hour = Math.floor(index / 2) + 6;
+            let min = (index % 2 === 0) ? '00' : '30';
+            return `${hour < 10 ? '0'+hour : hour}:${min}`;
+        }
+
+        timeSlider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            timeDisplay.innerText = formatTime(val);
+            updateT2Charts(val);
+        });
+
+        // 动态回放
+        const btnPlay = document.getElementById('btn-play');
+        let playInterval = null;
+
+        btnPlay.addEventListener('click', () => {
+            if (playInterval) {
+                clearInterval(playInterval);
+                playInterval = null;
+                btnPlay.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>动态回放';
+                btnPlay.classList.remove('btn-primary');
+            } else {
+                btnPlay.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>暂停回放';
+                btnPlay.classList.add('btn-primary');
+                playInterval = setInterval(() => {
+                    let nextVal = parseInt(timeSlider.value) + 1;
+                    if (nextVal > 34) nextVal = 0; 
+                    timeSlider.value = nextVal;
+                    timeDisplay.innerText = formatTime(nextVal);
+                    updateT2Charts(nextVal);
+                }, 800); 
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            chartTop10 && chartTop10.resize();
+            chartMap && chartMap.resize();
+            chartTrend && chartTrend.resize();
+            chartTopo && chartTopo.resize();
+            chartHotStation && chartHotStation.resize();
+            chartLoadTrend && chartLoadTrend.resize();
+        });
+
+        window.onload = initCharts;
+    </script>
+</body>
+</html>

@@ -18,7 +18,9 @@ def main() -> None:
         "station_count": len(station),
         "transfer_station_count": int(station["is_transfer"].sum()),
         "hourly_rows": len(flow),
-        "macro_city_count": len(macro),
+        "macro_city_count": int(macro["city_name"].nunique()),
+        "macro_row_count": len(macro),
+        "macro_latest_date": str(macro["stat_date"].max()),
         "peak_hour": int(flow.groupby("hour_of_day")["avg_flow"].sum().idxmax()),
     }
     print(summary)
