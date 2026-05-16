@@ -1,0 +1,146 @@
+.app-shell {
+  min-height: 100vh;
+  padding: 16px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--bg-panel);
+  margin-bottom: 16px;
+}
+
+.brand {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.tab-btn,
+.ghost-btn {
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-main);
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: rgba(0, 129, 255, 0.18);
+  border-color: var(--primary);
+}
+
+.screen-grid {
+  display: grid;
+  grid-template-columns: 1.65fr 1fr;
+  gap: 16px;
+}
+
+.sh-grid {
+  grid-template-columns: 1.65fr 1fr;
+}
+
+.metrics-grid {
+  grid-column: 1 / span 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.metric-card,
+.panel,
+.control-bar {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--bg-panel);
+}
+
+.metric-card {
+  padding: 18px;
+}
+
+.metric-label {
+  color: var(--text-sub);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.metric-unit {
+  font-size: 12px;
+  margin-left: 6px;
+  color: var(--text-sub);
+}
+
+.panel {
+  min-height: 340px;
+  padding: 16px;
+}
+
+.panel-large {
+  min-height: 420px;
+}
+
+.panel-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.chart-host {
+  height: 360px;
+}
+
+.panel-large .chart-host {
+  height: 420px;
+}
+
+.control-bar {
+  grid-column: 1 / span 2;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.time-tag {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .screen-grid,
+  .sh-grid,
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .control-bar {
+    grid-template-columns: 1fr;
+  }
+}
