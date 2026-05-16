@@ -25,16 +25,16 @@
           </select>
         </div>
 
-        <div class="panel">
+        <div class="panel heat-panel">
           <div class="panel-title">线路热力条</div>
           <BaseChart :option="lineOption" />
         </div>
 
-        <div class="panel">
+        <div class="panel trend-side-panel">
           <div class="panel-title">全天客流负荷趋势</div>
           <BaseChart :option="loadTrendOption" />
         </div>
-        <div class="panel">
+        <div class="panel hot-panel">
           <div class="panel-title">热点客流站点 Top 5</div>
           <BaseChart :option="hotOption" @chart-click="handleChartClick" />
         </div>
@@ -274,24 +274,76 @@ const loadTrendOption = computed(() => ({
   ],
 }));
 
-const lineOption = computed(() => ({
-  xAxis: {
-    type: "value",
-    axisLabel: { color: "#9db0c8" },
-    splitLine: { lineStyle: { color: "#22334b" } },
-  },
-  yAxis: {
-    type: "category",
-    data: filteredLines.value.map((item) => item.line_name).reverse(),
-    axisLabel: { color: "#dce7f5" },
-  },
-  series: [
-    {
-      type: "bar",
-      data: filteredLines.value.map((item) => item.crowd_index).reverse(),
-      itemStyle: { color: "#00d2ff" },
+const lineOption = computed(() => {
+  const items = filteredLines.value.map((item) => ({
+    name: item.line_name,
+    value: item.crowd_index,
+  })).reverse();
+  const visibleCount = Math.min(Math.max(items.length, 1), 8);
+
+  return {
+    grid: { top: 12, bottom: items.length > visibleCount ? 40 : 20, left: 58, right: 18 },
+    tooltip: {
+      trigger: "item",
+      formatter: ({ name, value }) => `${name}<br/>拥挤指数：${value}`,
     },
-  ],
-}));
+    xAxis: {
+      type: "value",
+      axisLabel: { color: "#9db0c8" },
+      splitLine: { lineStyle: { color: "#22334b" } },
+    },
+    yAxis: {
+      type: "category",
+      data: items.map((item) => item.name),
+      axisLabel: { color: "#dce7f5", fontSize: items.length > 10 ? 10 : 12 },
+      axisTick: { show: false },
+      axisLine: { show: false },
+    },
+    dataZoom: items.length > visibleCount ? [
+      {
+        type: "slider",
+        yAxisIndex: 0,
+        right: 0,
+        width: 10,
+        top: 12,
+        bottom: 12,
+        startValue: 0,
+        endValue: visibleCount - 1,
+        fillerColor: "rgba(0, 129, 255, 0.18)",
+        borderColor: "#22334b",
+        moveHandleSize: 0,
+        textStyle: { color: "#8b9bb4" },
+      },
+      {
+        type: "inside",
+        yAxisIndex: 0,
+        startValue: 0,
+        endValue: visibleCount - 1,
+        zoomOnMouseWheel: true,
+        moveOnMouseWheel: true,
+        moveOnMouseMove: true,
+      },
+    ] : [],
+    series: [
+      {
+        type: "bar",
+        data: items.map((item) => ({
+          name: item.name,
+          value: item.value,
+          itemStyle: { color: "#00d2ff" },
+        })),
+        barMaxWidth: 18,
+        barMinHeight: 6,
+        itemStyle: { borderRadius: [0, 4, 4, 0] },
+        label: {
+          show: items.length <= 8,
+          position: "right",
+          color: "#dce7f5",
+          fontSize: 11,
+        },
+      },
+    ],
+  };
+});
 
 </script>
