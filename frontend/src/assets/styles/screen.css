@@ -276,11 +276,114 @@ input[type="range"] {
   font-size: 13px;
 }
 
-.map-legend {
+.district-focus-bar {
+  position: absolute;
+  top: 52px;
+  right: 16px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(18, 28, 43, 0.92);
+  border: 1px solid rgba(0, 129, 255, 0.45);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+.district-focus-label {
+  color: #dce7f5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.district-reset-btn {
+  padding: 4px 12px;
+  border: 1px solid rgba(0, 210, 255, 0.55);
+  border-radius: 6px;
+  background: rgba(0, 129, 255, 0.18);
+  color: #00d2ff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.district-reset-btn:hover {
+  background: rgba(0, 129, 255, 0.32);
+  border-color: #00d2ff;
+}
+
+.map-legend-stack {
   position: absolute;
   top: 16px;
   left: 16px;
-  z-index: 2;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 280px;
+  pointer-events: none;
+}
+
+.map-legend-stack .map-legend {
+  position: static;
+}
+
+.map-interact-hint {
+  position: static;
+  transform: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px 10px 10px;
+  background: linear-gradient(135deg, rgba(8, 18, 32, 0.94), rgba(12, 28, 48, 0.9));
+  border: 1px solid rgba(0, 210, 255, 0.55);
+  border-radius: 12px;
+  box-shadow:
+    0 0 24px rgba(0, 129, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+.map-interact-pulse {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00d2ff;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.9);
+  animation: map-hint-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes map-hint-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.65;
+  }
+}
+
+.map-interact-title {
+  color: #00d2ff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.map-interact-desc {
+  color: #a8bdd4;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.map-legend {
   background: rgba(18, 28, 43, 0.88);
   border: 1px solid var(--border-color);
   border-radius: 10px;
@@ -297,6 +400,14 @@ input[type="range"] {
 .legend-items {
   display: flex;
   gap: 14px;
+}
+
+.legend-size-hint {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(47, 77, 110, 0.5);
+  color: #8b9bb4;
+  font-size: 11px;
 }
 
 .legend-item {
