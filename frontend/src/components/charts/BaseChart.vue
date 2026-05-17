@@ -4,7 +4,7 @@
 
 <script setup>
 import * as echarts from "echarts";
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, toRaw, watch } from "vue";
 
 const emit = defineEmits(["chart-click"]);
 
@@ -36,7 +36,7 @@ const render = () => {
     chart.on("click", (params) => emit("chart-click", params));
     clickBound = true;
   }
-  chart.setOption(props.option, {
+  chart.setOption(toRaw(props.option), {
     notMerge: !props.preserveState,
     replaceMerge: props.replaceMerge,
   });

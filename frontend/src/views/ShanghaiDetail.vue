@@ -13,7 +13,12 @@
             <div class="legend-item"><span class="legend-dot red"></span>拥挤</div>
           </div>
         </div>
-        <BaseChart :option="scatterOption" preserve-state :replace-merge="['series']" @chart-click="handleChartClick" />
+        <BaseChart
+          :option="scatterOption"
+          preserve-state
+          :replace-merge="['geo', 'series', 'xAxis', 'yAxis', 'dataZoom']"
+          @chart-click="handleChartClick"
+        />
       </div>
 
       <div class="shanghai-side">
@@ -49,6 +54,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import { fetchShanghaiLoadTrend } from "../api";
 import BaseChart from "../components/charts/BaseChart.vue";
 import PlaybackBar from "../components/controls/PlaybackBar.vue";
+import { loadShanghaiGeoMap, stationPlotToGcjLngLat } from "../utils/shanghaiGeo.js";
 
 const props = defineProps({
   hour: Number,
@@ -63,6 +69,7 @@ const emit = defineEmits(["update:hour", "toggle-play", "select-station"]);
 
 const selectedLine = ref("all");
 const loadTrend = ref([]);
+loadShanghaiGeoMap();
 
 const innerHour = computed({
   get: () => props.hour,
@@ -111,32 +118,76 @@ onMounted(loadTrendData);
 
 const scatterOption = computed(() => {
   const extent = props.topology?.extent ?? {};
+  const useGeo = true;
   const visibleLineNames = new Set(selectedLine.value === "all" ? lineOptions.value : [selectedLine.value]);
-  const lineSeries = (props.topology?.lines ?? [])
-    .filter((line) => visibleLineNames.has(line.line_name))
-    .map((line) => ({
-      name: line.line_name,
-      type: "line",
-      data: line.points,
-      showSymbol: false,
-      smooth: false,
-      silent: true,
-      lineStyle: {
-        width: 4,
-        color: line.color,
-        opacity: 0.92,
-      },
-      z: 1,
-    }));
 
-  return {
+  const metroLineSeries = (props.topology?.lines ?? [])
+    .filter((line) => visibleLineNames.has(line.line_name))
+    .map((line) => {
+      const coords = line.points.map(([x, y]) => stationPlotToGcjLngLat(x, y));
+      if (useGeo) {
+        return {
+          name: line.line_name,
+          type: "lines",
+          coordinateSystem: "geo",
+          geoIndex: 0,
+          polyline: true,
+          data: [{ coords }],
+          silent: true,
+          z: 2,
+          lineStyle: {
+            width: 4,
+            color: line.color,
+            opacity: 0.92,
+          },
+        };
+      }
+      return {
+        name: line.line_name,
+        type: "line",
+        data: line.points,
+        showSymbol: false,
+        smooth: false,
+        silent: true,
+        z: 2,
+        lineStyle: {
+          width: 4,
+          color: line.color,
+          opacity: 0.92,
+        },
+      };
+    });
+
+  const stationSeries = {
+    name: "站点客流",
+    type: "scatter",
+    coordinateSystem: useGeo ? "geo" : undefined,
+    geoIndex: useGeo ? 0 : undefined,
+    z: 3,
+    data: filteredFlow.value.map((item) => {
+      const [x, y] = useGeo
+        ? stationPlotToGcjLngLat(item.plot_x, item.plot_y)
+        : [item.plot_x, item.plot_y];
+      return {
+        name: item.station_name,
+        value: [x, y, item.crowd_index, item.avg_flow],
+        lineNames: item.line_names,
+      };
+    }),
+    symbolSize: (value) => Math.max(8, value[2] / 6),
+    itemStyle: {
+      color: (params) => getStationColor(params.value[2]),
+    },
+  };
+
+  const option = {
     tooltip: {
       trigger: "item",
       formatter: ({ componentSubType, data, seriesName }) => {
-        if (componentSubType === "line") {
+        if (componentSubType === "lines" || componentSubType === "line") {
           return `${seriesName}`;
         }
-        if (!data) return "";
+        if (!data?.value) return "";
         return [
           data.name,
           `小时客流：${data.value[3]}`,
@@ -145,52 +196,58 @@ const scatterOption = computed(() => {
         ].join("<br/>");
       },
     },
-    xAxis: {
-      show: false,
-      min: extent.min_x ? extent.min_x - 1200 : "dataMin",
-      max: extent.max_x ? extent.max_x + 1200 : "dataMax",
-      scale: true,
-    },
-    yAxis: {
-      show: false,
-      min: extent.min_y ? extent.min_y - 1200 : "dataMin",
-      max: extent.max_y ? extent.max_y + 1200 : "dataMax",
-      scale: true,
-    },
-    dataZoom: [
-      {
-        type: "inside",
-        xAxisIndex: 0,
-        filterMode: "none",
-        zoomOnMouseWheel: true,
-        moveOnMouseWheel: true,
-      },
-      {
-        type: "inside",
-        yAxisIndex: 0,
-        filterMode: "none",
-        zoomOnMouseWheel: true,
-        moveOnMouseWheel: true,
-      },
-    ],
-    series: [
-      ...lineSeries,
-      {
-        name: "站点客流",
-        type: "scatter",
-        z: 3,
-        data: filteredFlow.value.map((item) => ({
-          name: item.station_name,
-          value: [item.plot_x, item.plot_y, item.crowd_index, item.avg_flow],
-          lineNames: item.line_names,
-        })),
-        symbolSize: (value) => Math.max(8, value[2] / 6),
-        itemStyle: {
-          color: (params) => getStationColor(params.value[2]),
-        },
-      },
-    ],
+    series: [...metroLineSeries, stationSeries],
   };
+
+  if (useGeo) {
+    option.geo = {
+      map: "shanghai",
+      roam: true,
+      zoom: 1.08,
+      layoutCenter: ["50%", "52%"],
+      layoutSize: "112%",
+      itemStyle: {
+        areaColor: "#0c1421",
+        borderColor: "#2f4d6e",
+        borderWidth: 1.2,
+      },
+      emphasis: {
+        disabled: true,
+      },
+      z: 0,
+    };
+    return option;
+  }
+
+  option.xAxis = {
+    show: false,
+    min: extent.min_x ? extent.min_x - 1200 : "dataMin",
+    max: extent.max_x ? extent.max_x + 1200 : "dataMax",
+    scale: true,
+  };
+  option.yAxis = {
+    show: false,
+    min: extent.min_y ? extent.min_y - 1200 : "dataMin",
+    max: extent.max_y ? extent.max_y + 1200 : "dataMax",
+    scale: true,
+  };
+  option.dataZoom = [
+    {
+      type: "inside",
+      xAxisIndex: 0,
+      filterMode: "none",
+      zoomOnMouseWheel: true,
+      moveOnMouseWheel: true,
+    },
+    {
+      type: "inside",
+      yAxisIndex: 0,
+      filterMode: "none",
+      zoomOnMouseWheel: true,
+      moveOnMouseWheel: true,
+    },
+  ];
+  return option;
 });
 
 const hotOption = computed(() => ({
