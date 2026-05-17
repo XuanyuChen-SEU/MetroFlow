@@ -54,13 +54,14 @@
 .national-screen {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px; /* 原 16px */
 }
+
 
 .national-layout {
   display: grid;
   grid-template-columns: 24% 1fr 26%;
-  gap: 16px;
+  gap: 12px; /* 原 16px */
   min-height: 0;
 }
 
@@ -72,7 +73,7 @@
   grid-column: 1 / span 2;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px; /* 原 16px */
 }
 
 .metric-card,
@@ -84,29 +85,73 @@
 }
 
 .metric-card {
-  padding: 18px;
+  position: relative;
+  padding: 14px 20px; /* 原 20px 24px，收紧上下空间 */
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px; /* 圆角略微收紧 */
+}
+
+.metric-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--cyan), var(--primary));
+  box-shadow: 0 0 8px var(--glow-cyan);
 }
 
 .metric-label {
   color: var(--text-sub);
-  font-size: 13px;
-  margin-bottom: 10px;
+  font-size: 15px;
+  margin-bottom: 6px; /* 减小标题与数值的间距 */
+  font-weight: 500;
 }
 
 .metric-value {
-  font-size: 28px;
+  font-size: 34px; /* 原 38px，微调以适应变矮的卡片 */
   font-weight: 700;
+  color: #fff;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .metric-unit {
-  font-size: 12px;
-  margin-left: 6px;
+  font-size: 16px; /* 放大单位字体 (原 12px) */
+  margin-left: 8px;
   color: var(--text-sub);
 }
 
 .panel {
-  min-height: 340px;
-  padding: 16px;
+  position: relative;
+  min-height: 280px; /* 原 340px，降低面板高度 */
+  padding: 10px 12px; /* 原 12px 14px，内容向外扩 */
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.panel::before,
+.panel::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--panel-border-light);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 10;
+}
+.panel::before {
+  top: -1px; left: -1px;
+  border-width: 2px 0 0 2px;
+  border-top-left-radius: 4px;
+}
+.panel::after {
+  bottom: -1px; right: -1px;
+  border-width: 0 2px 2px 0;
+  border-bottom-right-radius: 4px;
 }
 
 .panel-large {
@@ -114,13 +159,22 @@
 }
 
 .panel-title {
-  font-size: 15px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 6px; /* 原 8px */
+  color: var(--text-main);
+}
+
+.panel-title::before {
+  height: 16px;
+  margin-right: 8px;
 }
 
 .chart-host {
-  height: 360px;
+  height: 100%;
+  min-height: 240px; 
 }
 
 .panel-large .chart-host {
@@ -142,7 +196,7 @@
 
 .map-panel {
   position: relative;
-  min-height: 540px;
+  min-height: 480px; /* 原 540px，大幅降低总长 */
   overflow: hidden;
 }
 
@@ -156,13 +210,30 @@
 
 .national-map {
   height: 100%;
-  min-height: 508px;
+  min-height: 450px; /* 原 508px */
 }
 
 .side-column {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 12px; /* 原 16px */
+}
+
+.structure-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.structure-charts {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  min-height: 0;
+}
+
+.structure-charts .chart-host {
+  flex: 1;
+  height: 100%;
 }
 
 .insight-list {

@@ -28,3 +28,23 @@ body {
 #app {
   min-height: 100vh;
 }
+
+/* 屏幕特效变量与基础样式 */
+:root {
+  --glow-cyan: rgba(0, 210, 255, 0.6);
+  --glow-primary: rgba(0, 129, 255, 0.5);
+  --panel-border-light: rgba(0, 210, 255, 0.3);
+}
+
+/* 霓虹发光文字特效 */
+.text-glow {
+  text-shadow: 0 0 10px var(--glow-cyan);
+}
+
+/* 渐变文本 */
+.text-gradient {
+  background: linear-gradient(90deg, #e5eef9, #00d2ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
