@@ -31,7 +31,7 @@
           :key="mapRenderKey"
           :option="scatterOption"
           preserve-state
-          :replace-merge="['geo', 'series', 'xAxis', 'yAxis', 'dataZoom']"
+          :replace-merge="['series']"
           @chart-click="handleChartClick"
         />
       </div>
@@ -361,14 +361,14 @@ const lineOption = computed(() => {
   }));
   const reversed = [...items].reverse();
   const values = reversed.map((item) => item.value);
-  const maxCrowd = values.length ? Math.max(...values, 20) : 20;
   const visibleCount = Math.min(Math.max(items.length, 1), 8);
+  const fixedCrowdAxisMax = 100;
 
   const option = buildTechBarChartOption({
     categories: reversed.map((item) => item.name),
     values,
-    maxValue: maxCrowd,
-    xMax: Math.ceil(maxCrowd * 1.15),
+    maxValue: fixedCrowdAxisMax,
+    xMax: fixedCrowdAxisMax,
     grid: { top: 12, bottom: items.length > visibleCount ? 40 : 18, left: 58, right: 36 },
     barWidth: 12,
     showXAxis: true,
